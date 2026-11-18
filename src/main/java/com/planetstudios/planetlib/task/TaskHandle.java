@@ -41,7 +41,7 @@ public final class TaskHandle {
     }
 
     /** Cancels a task only while it is still queued; never interrupts an executor thread. */
-    public boolean cancel() {
+    public synchronized boolean cancel() {
         if (!status.compareAndSet(TaskStatus.QUEUED, TaskStatus.CANCELLED)) {
             return false;
         }
@@ -53,23 +53,19 @@ public final class TaskHandle {
         return status.compareAndSet(TaskStatus.QUEUED, TaskStatus.RUNNING);
     }
 
-    void succeed() {
+    synchronized void succeed() {
         if (status.compareAndSet(TaskStatus.RUNNING, TaskStatus.SUCCEEDED)) {
             completion.complete(TaskStatus.SUCCEEDED);
         }
     }
 
-    void fail(Throwable cause) {
-        while (true) {
-            TaskStatus current = status.get();
-            if (current != TaskStatus.QUEUED && current != TaskStatus.RUNNING) {
-                return;
-            }
-            failure = cause;
-            if (status.compareAndSet(current, TaskStatus.FAILED)) {
-                completion.complete(TaskStatus.FAILED);
-                return;
-            }
+    synchronized void fail(Throwable cause) {
+        TaskStatus current = status.get();
+        if (current != TaskStatus.QUEUED && current != TaskStatus.RUNNING) {
+            return;
         }
+        failure = cause;
+        status.set(TaskStatus.FAILED);
+        completion.complete(TaskStatus.FAILED);
     }
 }
