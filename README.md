@@ -14,7 +14,7 @@ Planet Lib is a lightweight Fabric library for Minecraft Java Edition **1.21.11*
 - [x] Planet Essentials bridge
 - [x] Compatibility API
 - [x] Version and Capability Detection
-- [ ] Diagnostics API
+- [ ] Diagnostics API (implementation committed; CI verification pending)
 - [ ] Resource API
 - [ ] Task Utilities
 - [ ] Optional Input API
@@ -50,6 +50,10 @@ Provides explicit compatibility declarations with five evidence levels: native i
 ### Version and Capability Detection
 
 Parses common mod version formats, checks inclusive-minimum/exclusive-maximum requirements against loaded-mod snapshots, and supports explicit owner-namespaced capability declarations. Version checks and capability availability remain separate; unknown versions and undeclared capabilities are never assumed available. See docs/architecture/version-capability-detection.md.
+
+### Diagnostics API
+
+Provides a bounded, thread-safe in-memory event recorder with severity levels, immutable snapshots, eviction counts, and optional caller-measured durations. Recording is explicit; it does not poll game state, write files, upload telemetry, or automatically collect personal data. See docs/architecture/diagnostics-api.md.
 
 ## Development
 
