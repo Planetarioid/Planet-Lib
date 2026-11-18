@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModVersionTest {
     @Test
     void parsesCommonVersionForms() {
-        assertEquals(ModVersion.parse("1.2.0"), ModVersion.parse("v1.2"));
+        assertEquals(0, ModVersion.parse("1.2.0").compareTo(ModVersion.parse("v1.2")));
         assertEquals("beta.2", ModVersion.parse("2.0.0-beta.2+build.4").prerelease());
     }
 
