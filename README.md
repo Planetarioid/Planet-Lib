@@ -16,7 +16,7 @@ Planet Lib is a lightweight Fabric library for Minecraft Java Edition **1.21.11*
 - [x] Version and Capability Detection
 - [x] Diagnostics API
 - [x] Resource API
-- [ ] Task Utilities
+- [x] Task Utilities
 - [ ] Optional Input API
 
 Only completed and tested features will be marked complete.
@@ -58,6 +58,10 @@ Provides a bounded, thread-safe in-memory event recorder with severity levels, i
 ### Resource API
 
 Provides validated namespaced resource IDs, immutable resource metadata, duplicate-safe registration, and deterministic lookup snapshots by ID, owner, or kind. It is a metadata index only, not an asset loader or resource-pack scanner. See docs/architecture/resource-api.md.
+
+### Task Utilities
+
+Provides executor-neutral task dispatch with queued, running, succeeded, failed, and cancelled states. Callers supply the executor; Planet Lib does not create threads or interrupt running executor tasks. Handles expose a read-only completion stage and captured ordinary exceptions. See docs/architecture/task-utilities.md.
 
 ## Development
 
