@@ -1,5 +1,6 @@
 package com.planetstudios.planetlib;
 
+import com.planetstudios.planetlib.essentials.PlanetEssentialsBridge;
 import com.planetstudios.planetlib.registry.ModRegistry;
 import com.planetstudios.planetlib.registry.ModRegistrySnapshot;
 import net.fabricmc.api.ModInitializer;
@@ -16,10 +17,22 @@ public final class PlanetLib implements ModInitializer {
     public static final String MOD_ID = "planet_lib";
     public static final Logger LOGGER = LoggerFactory.getLogger("Planet Lib");
 
+    private static volatile PlanetEssentialsBridge essentialsBridge =
+            PlanetEssentialsBridge.undiscovered();
+
     @Override
     public void onInitialize() {
         ModRegistrySnapshot snapshot = ModRegistry.refresh();
+        essentialsBridge = PlanetEssentialsBridge.discover();
+
         LOGGER.info("Planet Lib initialized. Detected {} loaded mods, including {} Planet Studios mods.",
                 snapshot.getMods().size(), snapshot.getPlanetMods().size());
+        LOGGER.info("Planet Essentials bridge status: {} ({})",
+                essentialsBridge.status(), essentialsBridge.detail());
+    }
+
+    /** Returns the optional Essentials connection discovered during initialization. */
+    public static PlanetEssentialsBridge getEssentialsBridge() {
+        return essentialsBridge;
     }
 }
