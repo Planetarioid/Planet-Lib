@@ -74,7 +74,7 @@ Provides opt-in registration and immutable discovery of logical input-action met
 - Java: 21
 - Build: Gradle + Fabric Loom
 
-Build with gradle build and run tests with gradle test.
+Build with `gradle clean build` and run tests with `gradle test`. GitHub Actions also verifies the distributable JAR structure and uploads the JAR, sources JAR, and test report as workflow artifacts. See the [release checklist](docs/release-checklist.md) for the remaining runtime and release decisions.
 
 ## Design principles
 
