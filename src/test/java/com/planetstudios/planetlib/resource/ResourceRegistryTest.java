@@ -46,7 +46,7 @@ class ResourceRegistryTest {
 
     @Test
     void rejectsDuplicateIdsAndOwnerNamespaceMismatch() {
-        ResourceRegistry registry = new ResourceRegistry();
+        ResourceRegistry registry = new ResourceRegistry(id -> id.equals("planet_essentials"));
         registry.register(texture("textures/ui/icon.png"));
         assertThrows(IllegalArgumentException.class,
                 () -> registry.register(texture("textures/ui/icon.png")));
