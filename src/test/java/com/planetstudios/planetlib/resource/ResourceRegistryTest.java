@@ -2,14 +2,14 @@ package com.planetstudios.planetlib.resource;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ResourceRegistryTest {
     private ResourceDescriptor texture(String path) {
         return new ResourceDescriptor(new ResourceId("planet_essentials", path),
-                "planet_essentials", ResourceKind.TEXTURE, "UI texture", List.of("ui"));
+                "planet_essentials", ResourceKind.TEXTURE, "UI texture", Set.of("ui"));
     }
 
     @Test
