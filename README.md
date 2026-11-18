@@ -7,7 +7,7 @@ Planet Lib is a lightweight Fabric library for Minecraft Java Edition **1.21.11*
 ## Current development status
 
 - [x] Repository initialized
-- [ ] Mod Registry
+- [x] Mod Registry
 - [ ] Configuration API
 - [ ] Planet Essentials bridge
 - [ ] Feature Registry
