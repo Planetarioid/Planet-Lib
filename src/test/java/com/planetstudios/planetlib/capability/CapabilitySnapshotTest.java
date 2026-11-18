@@ -22,7 +22,7 @@ class CapabilitySnapshotTest {
     @Test
     void capabilityIdsAreNamespacedAndValidated() {
         assertEquals("planet_alpha:config_api", new CapabilityId("planet_alpha", "config_api").toString());
-        assertThrows(IllegalArgumentException.class, () -> new CapabilityId("Planet", "config_api"));
+        assertThrows(IllegalArgumentException.class, () -> new CapabilityId("Planet", "config_api"));\n        assertThrows(IllegalArgumentException.class, () -> new CapabilityId("..", "config_api"));\n        assertThrows(IllegalArgumentException.class, () -> new CapabilityId("planet_alpha", ".."));
     }
 
     private static CapabilityDescriptor descriptor(String owner, String name) {
