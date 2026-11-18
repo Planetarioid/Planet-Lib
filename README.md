@@ -11,7 +11,7 @@ Planet Lib is a lightweight Fabric library for Minecraft Java Edition **1.21.11*
 - [x] Configuration API
 - [x] Feature Registry
 - [x] Feature Priority Manager
-- [ ] Planet Essentials bridge
+- [ ] Planet Essentials bridge (implementation committed; CI verification pending)
 - [ ] Compatibility API
 - [ ] Version and Capability Detection
 - [ ] Diagnostics API
@@ -38,6 +38,10 @@ Registers immutable, mod-namespaced feature metadata and exposes deterministic s
 ### Feature Priority Manager
 
 Groups implementations by shared capability, selects the highest-priority provider deterministically, and supports explicit reversible user preferences. Selection is scoped per capability. The manager does not disable mods, invoke provider code, or install runtime hooks. See docs/architecture/feature-priority-manager.md.
+
+### Planet Essentials Bridge
+
+Discovers the optional Planet Essentials Fabric entrypoint, negotiates API version 1, and accepts immutable integration metadata. Planet Essentials is not a required dependency. The first milestone does not modify other mods’ settings or provide settings UI. See docs/architecture/planet-essentials-bridge.md.
 
 ## Development
 
