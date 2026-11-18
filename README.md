@@ -9,23 +9,35 @@ Planet Lib is a lightweight Fabric library for Minecraft Java Edition **1.21.11*
 - [x] Repository initialized
 - [x] Mod Registry
 - [x] Configuration API
+- [x] Feature Registry
+- [x] Feature Priority Manager (implementation committed; CI verification pending)
 - [ ] Planet Essentials bridge
-- [ ] Feature Registry (implementation committed; CI verification pending)
-- [ ] Feature Priority Manager
 - [ ] Compatibility API
-- [ ] Optional Input API
-- [ ] Resource API
-- [ ] Diagnostics API
-- [ ] Task Utilities
 - [ ] Version and Capability Detection
+- [ ] Diagnostics API
+- [ ] Resource API
+- [ ] Task Utilities
+- [ ] Optional Input API
 
 Only completed and tested features will be marked complete.
 
-## First system: Mod Registry
+## Implemented systems
 
-The Mod Registry reads the mods Fabric Loader has successfully loaded and exposes an immutable snapshot of their metadata. Planet Studios mods are identified by the `planet_` mod-ID namespace, including IDs provided as aliases.
+### Mod Registry
 
-The registry reports loaded mods only. It is not a disk scanner, does not inspect arbitrary JAR files, and does not attempt to load or modify other mods.
+Reads the mods Fabric Loader has successfully loaded and exposes an immutable snapshot of their metadata. Planet Studios mods are identified by the planet_ mod-ID namespace, including IDs provided as aliases. It does not scan disk or inspect arbitrary JAR files.
+
+### Configuration API
+
+Provides typed configuration handles, isolated per-mod configuration files, explicit save/reload operations, atomic replacement where supported, and protection against malformed files and unsafe paths.
+
+### Feature Registry
+
+Registers immutable, mod-namespaced feature metadata and exposes deterministic snapshots for discovery. It does not control feature activation or resolve conflicts.
+
+### Feature Priority Manager
+
+Groups implementations by shared capability, selects the highest-priority provider deterministically, and supports explicit reversible user preferences. Selection is scoped per capability. The manager does not disable mods, invoke provider code, or install runtime hooks. See docs/architecture/feature-priority-manager.md.
 
 ## Development
 
@@ -34,7 +46,7 @@ The registry reports loaded mods only. It is not a disk scanner, does not inspec
 - Java: 21
 - Build: Gradle + Fabric Loom
 
-Build with `gradle build` and run tests with `gradle test`.
+Build with gradle build and run tests with gradle test.
 
 ## Design principles
 
