@@ -57,7 +57,7 @@ class ResourceRegistryTest {
 
     @Test
     void snapshotsRemainStableAfterLaterRegistration() {
-        ResourceRegistry registry = new ResourceRegistry();
+        ResourceRegistry registry = new ResourceRegistry(id -> id.equals("planet_essentials"));
         registry.register(texture("textures/ui/first.png"));
         ResourceRegistrySnapshot earlier = registry.snapshot();
         registry.register(texture("textures/ui/second.png"));
