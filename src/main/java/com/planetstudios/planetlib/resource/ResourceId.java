@@ -7,7 +7,7 @@ public record ResourceId(String namespace, String path) implements Comparable<Re
     public ResourceId {
         namespace = Objects.requireNonNull(namespace, "namespace");
         path = Objects.requireNonNull(path, "path");
-        if (!namespace.matches("[a-z0-9_.-]+")) {
+        if (!namespace.matches("[a-z0-9_.-]+") || namespace.equals(".") || namespace.equals("..")) {
             throw new IllegalArgumentException("namespace must be a lowercase identifier");
         }
         if (path.isBlank() || path.startsWith("/") || path.endsWith("/")
