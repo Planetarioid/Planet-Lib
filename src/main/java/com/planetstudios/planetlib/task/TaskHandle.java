@@ -54,13 +54,22 @@ public final class TaskHandle {
     }
 
     void succeed() {
-        status.set(TaskStatus.SUCCEEDED);
-        completion.complete(TaskStatus.SUCCEEDED);
+        if (status.compareAndSet(TaskStatus.RUNNING, TaskStatus.SUCCEEDED)) {
+            completion.complete(TaskStatus.SUCCEEDED);
+        }
     }
 
     void fail(Throwable cause) {
-        failure = cause;
-        status.set(TaskStatus.FAILED);
-        completion.complete(TaskStatus.FAILED);
+        while (true) {
+            TaskStatus current = status.get();
+            if (current != TaskStatus.QUEUED && current != TaskStatus.RUNNING) {
+                return;
+            }
+            failure = cause;
+            if (status.compareAndSet(current, TaskStatus.FAILED)) {
+                completion.complete(TaskStatus.FAILED);
+                return;
+            }
+        }
     }
 }
