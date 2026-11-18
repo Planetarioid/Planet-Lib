@@ -67,6 +67,13 @@ Provides executor-neutral task dispatch with queued, running, succeeded, failed,
 
 Provides opt-in registration and immutable discovery of logical input-action metadata, including owner-namespaced IDs and default binding identifiers. It does not initialize an input engine, poll hardware, synthesize input, or install hooks. Client integrations must explicitly connect actions to the supported Minecraft/Fabric input lifecycle. See docs/architecture/input-api.md.
 
+## Documentation
+
+- [API usage guide](docs/api-usage.md)
+- [Architecture notes](docs/architecture/)
+- [Release readiness checklist](docs/release-checklist.md)
+- [Changelog](CHANGELOG.md)
+
 ## Development
 
 - Minecraft: 1.21.11
