@@ -1,40 +1,42 @@
 package com.planetstudios.planetlib.compatibility;
 
 import com.planetstudios.planetlib.registry.ModRegistry;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Predicate;
 
-/**
- * Registry for explicit compatibility declarations supplied by loaded mods.
- *
- * <p>The declaring integration mod must be loaded according to Fabric's
- * ModRegistry. The target may be absent, allowing declarations to describe
- * supported combinations before the target is installed. This registry
- * reports declarations only; it does not infer or verify compatibility.</p>
- */
+/** Registry for explicit compatibility declarations supplied by loaded mods. */
 public final class CompatibilityRegistry {
+    private final Predicate<String> isModLoaded;
     private final Map<Key, CompatibilityDeclaration> declarations = new HashMap<>();
     private final AtomicReference<CompatibilitySnapshot> snapshot =
             new AtomicReference<>(new CompatibilitySnapshot(List.of()));
 
-    /**
-     * Adds a declaration from a currently loaded integration mod.
-     *
-     * @throws IllegalArgumentException if the declaring mod is not loaded or
-     *                                  the same pair has already been declared
-     */
+    /** Creates a registry using the current Fabric-loaded mod snapshot. */
+    public CompatibilityRegistry() {
+        this(modId -> ModRegistry.snapshot().isLoaded(modId));
+    }
+
+    /** Creates an isolated registry with an explicit integration-mod presence check. */
+    public CompatibilityRegistry(Predicate<String> isModLoaded) {
+        this.isModLoaded = Objects.requireNonNull(isModLoaded, "isModLoaded");
+    }
+
+    /** Returns the shared process-wide compatibility registry. */
+    public static CompatibilityRegistry getInstance() {
+        return Holder.INSTANCE;
+    }
+
     public synchronized CompatibilityDeclaration register(CompatibilityDeclaration declaration) {
         Objects.requireNonNull(declaration, "declaration");
-        if (!ModRegistry.snapshot().isLoaded(declaration.integrationModId())) {
-            throw new IllegalArgumentException(
-                    "Integration mod is not loaded: " + declaration.integrationModId());
+        if (!isModLoaded.test(declaration.integrationModId())) {
+            throw new IllegalArgumentException("Integration mod is not loaded: "
+                    + declaration.integrationModId());
         }
-
         Key key = new Key(declaration.integrationModId(), declaration.targetModId());
         if (declarations.putIfAbsent(key, declaration) != null) {
             throw new IllegalArgumentException("Compatibility already declared for "
@@ -52,6 +54,9 @@ public final class CompatibilityRegistry {
         snapshot.set(new CompatibilitySnapshot(new ArrayList<>(declarations.values())));
     }
 
-    private record Key(String integrationModId, String targetModId) {
+    private record Key(String integrationModId, String targetModId) { }
+
+    private static final class Holder {
+        private static final CompatibilityRegistry INSTANCE = new CompatibilityRegistry();
     }
 }
