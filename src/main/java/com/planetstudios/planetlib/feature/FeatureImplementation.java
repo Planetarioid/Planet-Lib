@@ -7,7 +7,7 @@ public record FeatureImplementation(String capabilityId, FeatureId featureId, in
     public FeatureImplementation {
         capabilityId = Objects.requireNonNull(capabilityId, "capabilityId").trim();
         featureId = Objects.requireNonNull(featureId, "featureId");
-        if (!capabilityId.matches("[a-z0-9_.-]+:[a-z0-9_./-]+")) {
+        if (!capabilityId.matches("[a-z0-9_.-]+:[a-z0-9_./-]+")\n                || capabilityId.startsWith(".:") || capabilityId.startsWith("..:")) {
             throw new IllegalArgumentException("capabilityId must use lowercase namespace:path format");
         }
         for (String segment : capabilityId.substring(capabilityId.indexOf(':') + 1).split("/")) {
