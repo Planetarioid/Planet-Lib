@@ -64,14 +64,18 @@ class TaskDispatcherTest {
     }
 
     @Test
-    void runningTaskCannotBeCancelledOrInterruptedByHandle() {
+    void runningTaskCannotBeCancelledByHandle() {
         List<Runnable> queue = new ArrayList<>();
-        TaskHandle handle = TaskDispatcher.submit(queue::add, () -> fail("should not run yet"));
-        assertEquals(TaskStatus.QUEUED, handle.status());
-        assertTrue(queue.size() == 1);
-        assertTrue(handle.cancel());
+        TaskHandle[] observed = new TaskHandle[1];
+        AtomicInteger calls = new AtomicInteger();
+        observed[0] = TaskDispatcher.submit(queue::add, () -> {
+            calls.incrementAndGet();
+            assertFalse(observed[0].cancel());
+        });
+
         queue.forEach(Runnable::run);
-        assertEquals(TaskStatus.CANCELLED, handle.status());
+        assertEquals(1, calls.get());
+        assertEquals(TaskStatus.SUCCEEDED, observed[0].status());
     }
 
     @Test
