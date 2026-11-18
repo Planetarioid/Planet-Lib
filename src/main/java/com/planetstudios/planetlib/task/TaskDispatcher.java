@@ -30,6 +30,9 @@ public final class TaskDispatcher {
                     handle.succeed();
                 } catch (Exception exception) {
                     handle.fail(exception);
+                } catch (Error error) {
+                    handle.fail(error);
+                    throw error;
                 }
             });
         } catch (RuntimeException rejection) {
