@@ -9,7 +9,6 @@
     "homepage": "https://github.com/Planetarioid/Planet-Lib",
     "sources": "https://github.com/Planetarioid/Planet-Lib"
   },
-  "license": "All-Rights-Reserved",
   "environment": "*",
   "entrypoints": {
     "main": ["com.planetstudios.planetlib.PlanetLib"]
