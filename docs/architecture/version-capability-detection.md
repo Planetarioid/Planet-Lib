@@ -12,7 +12,7 @@ Unrecognized version formats are reported as unparseable. The detector does not 
 
 ## Capability declarations
 
-A capability is explicitly advertised by its owning mod with an owner-namespaced `CapabilityId` and description. Registration requires the owner to be present in the Mod Registry. Snapshots are immutable and sorted. A capability is available only when it has been registered and its owner is loaded.
+A capability is explicitly advertised by its owning mod with an owner-namespaced `CapabilityId` and description. Registration requires the owner to be present in the Mod Registry. Use `CapabilityRegistry.getInstance()` for the shared registry. Isolated instances can receive an explicit owner-presence predicate for tests. Snapshots are immutable and sorted. A capability is available only when it has been registered and its owner is loaded.
 
 Capabilities are not inferred from mod names, versions, installed files, or compatibility declarations. Absence means unknown/unavailable to this API, not proof that the mod lacks the behavior.
 
