@@ -55,6 +55,10 @@ Parses common mod version formats, checks inclusive-minimum/exclusive-maximum re
 
 Provides a bounded, thread-safe in-memory event recorder with severity levels, immutable snapshots, eviction counts, and optional caller-measured durations. Recording is explicit; it does not poll game state, write files, upload telemetry, or automatically collect personal data. See docs/architecture/diagnostics-api.md.
 
+### Resource API
+
+Provides validated namespaced resource IDs, immutable resource metadata, duplicate-safe registration, and deterministic lookup snapshots by ID, owner, or kind. It is a metadata index only, not an asset loader or resource-pack scanner. See docs/architecture/resource-api.md.
+
 ## Development
 
 - Minecraft: 1.21.11
