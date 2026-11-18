@@ -16,7 +16,7 @@ An absent declaration means unknown. It must never be presented as compatible by
 
 A declaration identifies the integration mod making the statement, the target mod, its compatibility level, a short summary, and optional conditions. Conditional declarations require conditions. The declaring mod must be present in the Mod Registry; the target may be absent so supported combinations can be documented ahead of installation.
 
-The registry rejects duplicate declarations for the same integration/target pair and publishes immutable, sorted snapshots for lock-free reads.
+The shared registry is available through `CompatibilityRegistry.getInstance()`. Isolated instances can receive an explicit loaded-mod predicate for tests. The registry rejects duplicate declarations for the same integration/target pair and publishes immutable, sorted snapshots for lock-free reads.
 
 ## Evidence and responsibility
 
