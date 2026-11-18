@@ -17,7 +17,7 @@ Planet Lib is a lightweight Fabric library for Minecraft Java Edition **1.21.11*
 - [x] Diagnostics API
 - [x] Resource API
 - [x] Task Utilities
-- [ ] Optional Input API
+- [x] Optional Input API
 
 Only completed and tested features will be marked complete.
 
@@ -62,6 +62,10 @@ Provides validated namespaced resource IDs, immutable resource metadata, duplica
 ### Task Utilities
 
 Provides executor-neutral task dispatch with queued, running, succeeded, failed, and cancelled states. Callers supply the executor; Planet Lib does not create threads or interrupt running executor tasks. Handles expose a read-only completion stage and captured ordinary exceptions. See docs/architecture/task-utilities.md.
+
+### Optional Input API
+
+Provides opt-in registration and immutable discovery of logical input-action metadata, including owner-namespaced IDs and default binding identifiers. It does not initialize an input engine, poll hardware, synthesize input, or install hooks. Client integrations must explicitly connect actions to the supported Minecraft/Fabric input lifecycle. See docs/architecture/input-api.md.
 
 ## Development
 
