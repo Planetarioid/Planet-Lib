@@ -30,7 +30,7 @@ class ResourceRegistryTest {
 
     @Test
     void registersAndQueriesImmutableSnapshots() {
-        ResourceRegistry registry = new ResourceRegistry();
+        ResourceRegistry registry = new ResourceRegistry(id -> id.equals("planet_essentials"));
         registry.register(texture("textures/ui/b.png"));
         registry.register(texture("textures/ui/a.png"));
 
