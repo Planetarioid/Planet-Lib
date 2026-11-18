@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;\nimport java.util.Objects;
+import java.util.Optional;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -34,11 +35,13 @@ public final class ResourceRegistrySnapshot {
     }
 
     public List<ResourceDescriptor> byOwner(String ownerModId) {
-        Objects.requireNonNull(ownerModId, "ownerModId");\n        return resources.stream().filter(resource -> resource.ownerModId().equals(ownerModId)).toList();
+        Objects.requireNonNull(ownerModId, "ownerModId");
+        return resources.stream().filter(resource -> resource.ownerModId().equals(ownerModId)).toList();
     }
 
     public List<ResourceDescriptor> byKind(ResourceKind kind) {
-        Objects.requireNonNull(kind, "kind");\n        return resources.stream().filter(resource -> resource.kind() == kind).toList();
+        Objects.requireNonNull(kind, "kind");
+        return resources.stream().filter(resource -> resource.kind() == kind).toList();
     }
 
     public int size() {
