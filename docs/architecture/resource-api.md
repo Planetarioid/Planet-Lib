@@ -16,4 +16,4 @@ The Resource API provides a lightweight, shared index of logical resources contr
 
 This is metadata registration, not an asset pipeline. It does not read files, scan resource packs, load arbitrary paths or URLs, decode assets, render textures, play audio, or modify resource-pack contents. Minecraft/Fabric and the relevant owning mod remain responsible for actual asset resolution and loading. Planet Essentials and Planet Advanced Textures & Audio retain their dedicated asset-management responsibilities.
 
-Registration rejects duplicate IDs and namespace/owner mismatches. Snapshots are immutable and remain stable after later registrations. Register during mod initialization, not on a per-tick path.
+Registration rejects duplicate IDs, namespace/owner mismatches, and owners that are not present in the current Mod Registry snapshot. The shared registry is available through `ResourceRegistry.getInstance()`; isolated registries can receive an explicit owner-presence predicate for tests. Snapshots are immutable and remain stable after later registrations. Register during mod initialization, not on a per-tick path.
