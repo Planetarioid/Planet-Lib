@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "planet_lib",
+  "version": "${version}",
+  "name": "Planet Lib",
+  "description": "Shared foundational APIs for the Planet Studios mod ecosystem.",
+  "authors": ["Planet Studios"],
+  "contact": {
+    "homepage": "https://github.com/Planetarioid/Planet-Lib",
+    "sources": "https://github.com/Planetarioid/Planet-Lib"
+  },
+  "license": "All-Rights-Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.planetstudios.planetlib.PlanetLib"]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21"
+  }
+}
