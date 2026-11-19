@@ -19,6 +19,16 @@ public final class FeaturePriorityManager {
                     .thenComparing(FeatureImplementation::featureId);
 
     private final FeatureRegistry featureRegistry;
+
+    /** Returns the process-wide manager used by installed Planet mods and Essentials. */
+    public static FeaturePriorityManager getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    private static final class Holder {
+        private static final FeaturePriorityManager INSTANCE =
+                new FeaturePriorityManager(FeatureRegistry.getInstance());
+    }
     private final Map<String, Map<FeatureId, FeatureImplementation>> candidates = new HashMap<>();
     private final Map<String, FeatureId> userPreferences = new HashMap<>();
     private final AtomicReference<FeaturePrioritySnapshot> snapshot =
